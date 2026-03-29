@@ -1,3 +1,3 @@
-FROM arm32v7/nginx
+FROM nginx
 
 COPY dist /usr/share/nginx/html
