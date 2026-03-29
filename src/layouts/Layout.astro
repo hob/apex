@@ -1,0 +1,590 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Apex Detail — Premium automotive detailing. Precision, passion, and a commitment to flawless results. Serving the community with exterior, interior, engine bay, and full detail services.',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://apexdetail.com');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#26C6DA" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Apex Detail" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Apex Detail" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <header class="site-header" id="site-header">
+      <nav class="nav-container" aria-label="Main navigation">
+        <a href="/" class="nav-logo" aria-label="Apex Detail — Home">
+          <span class="logo-apex">APEX</span><span class="logo-detail">DETAIL</span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+
+        <ul class="nav-menu" id="nav-menu" role="list">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/#services" class="nav-link">Services</a></li>
+          <li><a href="/#contact" class="nav-link">Contact</a></li>
+          <li>
+            <a href="tel:9088786125" class="nav-cta" aria-label="Call to book now">
+              Book Now
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Page content -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <span class="footer-logo">
+            <span class="logo-apex">APEX</span><span class="logo-detail">DETAIL</span>
+          </span>
+          <p class="footer-tagline">Where every detail matters.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <ul role="list">
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#services">Services</a></li>
+            <li><a href="/#contact">Contact</a></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-contact">
+          <a href="tel:9088786125" class="footer-phone">908-878-6125</a>
+          <a href="tel:3057726418" class="footer-phone">305-772-6418</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          &copy; {new Date().getFullYear()} Apex Detail. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile nav toggle
+      const toggle = document.getElementById('nav-toggle');
+      const menu = document.getElementById('nav-menu');
+
+      toggle?.addEventListener('click', () => {
+        const isOpen = menu?.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      // Close nav when a link is clicked
+      menu?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          menu.classList.remove('is-open');
+          toggle?.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Sticky header shadow on scroll
+      const header = document.getElementById('site-header');
+      const onScroll = () => {
+        if (window.scrollY > 10) {
+          header?.classList.add('scrolled');
+        } else {
+          header?.classList.remove('scrolled');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* ==============================
+     CSS Custom Properties
+  ============================== */
+  :root {
+    --color-primary: #26c6da;
+    --color-primary-dark: #00acc1;
+    --color-primary-light: #4dd0e1;
+    --color-dark: #1a1a1a;
+    --color-dark-2: #222222;
+    --color-dark-3: #2c2c2c;
+    --color-dark-4: #383838;
+    --color-text: #ffffff;
+    --color-text-muted: #b0bec5;
+    --color-text-subtle: #78909c;
+    --color-accent: #00acc1;
+    --color-border: rgba(38, 198, 218, 0.2);
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      sans-serif;
+
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 32px;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --shadow-glow: 0 0 24px rgba(38, 198, 218, 0.25);
+
+    --nav-height: 68px;
+
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2.5rem;
+    --space-xl: 4rem;
+    --space-2xl: 6rem;
+
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 400ms ease;
+
+    --container-max: 1200px;
+    --container-padding: clamp(1rem, 5vw, 2rem);
+  }
+
+  /* ==============================
+     Reset & Base
+  ============================== */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-height);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-dark);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  /* ==============================
+     Utility Classes
+  ============================== */
+  .container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-padding);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ==============================
+     Navigation
+  ============================== */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--color-border-subtle);
+    transition: box-shadow var(--transition-base);
+  }
+
+  .site-header.scrolled {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-padding);
+    height: var(--nav-height);
+    gap: var(--space-md);
+  }
+
+  .nav-logo {
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .logo-apex {
+    color: var(--color-primary);
+  }
+
+  .logo-detail {
+    color: var(--color-text);
+    margin-left: 0.35em;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.07);
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    background-color: var(--color-primary);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast), transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover,
+  .nav-cta:focus-visible {
+    background-color: var(--color-primary-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .nav-cta:active {
+    transform: translateY(0);
+  }
+
+  /* Hamburger */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .nav-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+  }
+
+  .hamburger-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-text);
+    border-radius: 2px;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+    transform-origin: center;
+  }
+
+  /* Mobile nav */
+  @media (max-width: 680px) {
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-menu {
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background-color: var(--color-dark-2);
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding: var(--space-sm);
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform var(--transition-base), opacity var(--transition-base);
+    }
+
+    .nav-menu.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-link {
+      padding: 0.85rem 1rem;
+      font-size: 1rem;
+    }
+
+    .nav-cta {
+      margin-top: var(--space-xs);
+      padding: 0.85rem 1rem;
+      font-size: 1rem;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Hamburger animation when open */
+    [aria-expanded='true'] .hamburger-bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    [aria-expanded='true'] .hamburger-bar:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    [aria-expanded='true'] .hamburger-bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+
+  /* ==============================
+     Footer
+  ============================== */
+  .site-footer {
+    background-color: var(--color-dark-2);
+    border-top: 1px solid var(--color-border-subtle);
+    margin-top: auto;
+  }
+
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    align-items: flex-start;
+    justify-content: space-between;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding: var(--space-xl) var(--container-padding) var(--space-lg);
+  }
+
+  .footer-brand {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .footer-logo {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-tagline {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .footer-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-nav a {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .footer-nav a:hover {
+    color: var(--color-primary);
+  }
+
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-phone {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .footer-phone:hover {
+    color: var(--color-primary-light);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--color-border-subtle);
+    padding: var(--space-md) var(--container-padding);
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
+    color: var(--color-text-subtle);
+  }
+
+  /* ==============================
+     Focus styles
+  ============================== */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ==============================
+     Selection
+  ============================== */
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+  }
+
+  /* ==============================
+     Scrollbar (Webkit)
+  ============================== */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-dark);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-dark-4);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-dark);
+  }
+</style>

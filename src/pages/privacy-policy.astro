@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Privacy Policy — Apex Detail"
+  description="Privacy policy for Apex Detail automotive detailing services."
+>
+  <section class="privacy-section">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p class="last-updated">Last updated: March 2026</p>
+
+      <div class="content">
+        <h2>Information We Collect</h2>
+        <p>
+          Apex Detail collects only the information necessary to provide our automotive detailing
+          services. This may include your name, phone number, and vehicle information when you
+          contact us for a quote or to schedule a service.
+        </p>
+
+        <h2>How We Use Your Information</h2>
+        <p>
+          We use the information you provide solely to communicate with you about our services,
+          scheduling, and pricing. We do not sell or share your personal information with third
+          parties for marketing purposes.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          If you have any questions about this privacy policy, please contact us at
+          <a href="tel:9088786125">908-878-6125</a> or <a href="tel:3057726418">305-772-6418</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .privacy-section {
+    padding: var(--space-2xl) 0;
+    min-height: calc(100dvh - var(--nav-height));
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .last-updated {
+    font-size: 0.875rem;
+    color: var(--color-text-subtle);
+    margin-bottom: var(--space-xl);
+  }
+
+  .content {
+    max-width: 68ch;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-top: var(--space-sm);
+  }
+
+  p {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+
+  a {
+    color: var(--color-primary);
+    transition: color 150ms ease;
+  }
+
+  a:hover {
+    color: var(--color-primary-light);
+  }
+</style>
